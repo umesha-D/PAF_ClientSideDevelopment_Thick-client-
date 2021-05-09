@@ -17,7 +17,7 @@ import java.sql.Statement;
 		 try
 		 {
 		 Class.forName("com.mysql.jdbc.Driver");
-		 con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/items",
+		 con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/items ",
 		 "root", "");
 		 //For testing
 		 System.out.print("Successfully connected");
@@ -41,7 +41,7 @@ import java.sql.Statement;
 			 return "Error while connecting to the database"; 
 			 } 
 			 // create a prepared statement
-			 String query = " insert into item(ItemID,ItemCode,ItemName,ItemPrice,ItemDesc)values (?, ?, ?, ?, ?)"; 
+			 String query = " insert into item(itemID,itemCode,itemName,itemPrice,itemDesc)values (?, ?, ?, ?, ?)"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setInt(1, 0); 
@@ -80,7 +80,7 @@ import java.sql.Statement;
 								 + "<th>Item Description</th>" 
 								 + "<th>Update</th><th>Remove</th></tr>"; 
 					 
-					 String query = "select * from items"; 
+					 String query = "select * from item"; 
 					 Statement stmt = con.createStatement(); 
 					 ResultSet rs = stmt.executeQuery(query); 
 					 
@@ -126,17 +126,17 @@ import java.sql.Statement;
 						System.err.println("Error while connecting to the database for reading.");
 					}
 
-					String query = "select * from items where ItemID = ? ";
+					String query = "select * from item where itemID = ? ";
 					PreparedStatement stmt = con.prepareStatement(query);
 					stmt.setInt(1, itemID);
 
 					ResultSet rs = stmt.executeQuery();
 					// iterate through the rows in the result set
 					while (rs.next()) {
-						output[0] = (rs.getString("ItemCode"));
-						output[1] = (rs.getString("ItemName"));
-						output[2] = (rs.getString("ItemPrice"));
-						output[3] = (rs.getString("ItemDesc"));
+						output[0] = (rs.getString("itemCode"));
+						output[1] = (rs.getString("itemName"));
+						output[2] = (rs.getString("itemPrice"));
+						output[3] = (rs.getString("itemDesc"));
 					}
 
 				} catch (Exception e) {
@@ -147,7 +147,7 @@ import java.sql.Statement;
 				return output;
 			}
 
-			public String updateItem(int itemID,String itemcode,String itemname,String itemprice,String itemdesc)
+			public String updateItem(int itemID,String itemCode,String itemName,String itemPrice,String itemDesc)
 			{ 
 				String output = ""; 
 				try
@@ -158,13 +158,13 @@ import java.sql.Statement;
 						 return "Error while connecting to the database for updating."; 
 					 } 
 				 // create a prepared statement
-					 String query = "update items set ItemName = ?, ItemPrice = ?, ItemDesc = ? where ItemID = ?"; 
+					 String query = "update item set itemName = ?, itemPrice = ?, itemDesc = ? where itemID = ?"; 
 					 PreparedStatement preparedStmt = con.prepareStatement(query); 
 					 // binding values
-					 preparedStmt.setString(1, itemcode);
-					 preparedStmt.setString(2, itemname);
-					 preparedStmt.setDouble(3, Double.parseDouble(itemprice));
-					 preparedStmt.setString(4, itemdesc);
+					 preparedStmt.setString(1, itemCode);
+					 preparedStmt.setString(2, itemName);
+					 preparedStmt.setDouble(3, Double.parseDouble(itemPrice));
+					 preparedStmt.setString(4, itemDesc);
 					 preparedStmt.setInt(5, itemID);
 
 
@@ -192,7 +192,7 @@ import java.sql.Statement;
 						 return "Error while connecting to the database for deleting."; 
 					 } 
 				 // create a prepared statement
-					 String query = "delete from items where ItemID=?"; 
+					 String query = "delete from item where itemID=?"; 
 					 PreparedStatement preparedStmt = con.prepareStatement(query); 
 					 // binding values
 					 preparedStmt.setInt(1, Integer.parseInt(itemID)); 

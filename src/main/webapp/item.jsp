@@ -5,23 +5,23 @@
     
 <%
 	//insert items
-	if (request.getParameter("ItemCode") != null) {
+	if (request.getParameter("itemCode") != null) {
 		
 		Item itemObj = new Item();
 		
-		String stsMsg = itemObj.insertItem(request.getParameter("ItemCode"),
-						 request.getParameter("ItemName"),
-				         request.getParameter("ItemPrice"),
-				         request.getParameter("ItemDesc"));
+		String stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
+						 request.getParameter("itemName"),
+				         request.getParameter("itemPrice"),
+				         request.getParameter("itemDesc"));
 		
 		session.setAttribute("statusMsg", stsMsg);
 		
 	}
 	//update items
 	
-	if (request.getParameter("ItemID") != null) {
+	if (request.getParameter("itemID") != null) {
 		Item itemObj = new Item();
-		session.setAttribute("is_in_update_mode", request.getParameter("ItemID"));
+		session.setAttribute("is_in_update_mode", request.getParameter("itemID"));
 	}
 	
 	//setting data
@@ -68,10 +68,10 @@
 		session.setAttribute("is_in_update_mode", "");
 		session.setAttribute("statusMsg", stsMsg);
 		
-	} else if (request.getParameter("itemCode") != null) {
+	} else if (request.getParameter("ItemCode") != null) {
 		//insert new
 		Item itemObj = new Item();
-		String stsMsg = itemObj.insertItem(request.getParameter("ItemCode"), request.getParameter("ItemName"),request.getParameter("ItemPrice"), request.getParameter("ItemDesc"));
+		String stsMsg = itemObj.insertItem(request.getParameter("ItemCode"), request.getParameter("ItemName"),request.getParameter("ItemPrice"), request.getParameter("itemDesc"));
 		session.setAttribute("statusMsg", stsMsg);
 	
 	}
