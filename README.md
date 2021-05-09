@@ -1,1 +1,1 @@
-# PAF_ClientSideDevelopment_Thick-client-
+# PAF_ClientSideDevelopment_Thick_client
