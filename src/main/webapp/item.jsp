@@ -52,13 +52,13 @@
 	// insert when click save button
 	//update
 	
-	if (request.getParameter("ItemCode") != null && (session.getAttribute("is_in_update_mode") != null)) {
+	if (request.getParameter("itemCode") != null && (session.getAttribute("is_in_update_mode") != null)) {
 		
 			Item itemObj = new Item();
 			
 			String stsMsg = itemObj.updateItem(Integer.parseInt(String.valueOf(session.getAttribute("is_in_update_mode"))),
 					
-			request.getParameter("ItemCode"), request.getParameter("ItemName"), request.getParameter("ItemPrice"),request.getParameter("ItemDesc"));
+			request.getParameter("itemCode"), request.getParameter("itemName"), request.getParameter("itemPrice"),request.getParameter("itemDesc"));
 			itemCode = "";
 			itemName = "";
 			itemPrice = "";
@@ -68,21 +68,21 @@
 		session.setAttribute("is_in_update_mode", "");
 		session.setAttribute("statusMsg", stsMsg);
 		
-	} else if (request.getParameter("ItemCode") != null) {
+	} else if (request.getParameter("itemCode") != null) {
 		//insert new
 		Item itemObj = new Item();
-		String stsMsg = itemObj.insertItem(request.getParameter("ItemCode"), request.getParameter("ItemName"),request.getParameter("ItemPrice"), request.getParameter("itemDesc"));
+		String stsMsg = itemObj.insertItem(request.getParameter("itemCode"), request.getParameter("itemName"),request.getParameter("itemPrice"), request.getParameter("itemDesc"));
 		session.setAttribute("statusMsg", stsMsg);
 	
 	}
 	
 	//delete items
 	
-	if (request.getParameter("ItemID") != null) 
+	if (request.getParameter("hidItemIDDelete") != null) 
  	{ 
-	 Item itemObj = new Item(); 
-	 String stsMsg = itemObj.deleteItem(request.getParameter("ItemID")); 
-	 session.setAttribute("statusMsg", stsMsg); 
+	 	Item itemObj = new Item(); 
+	 	String stsMsg = itemObj.deleteItem(request.getParameter("hidItemIDDelete")); 
+	 	session.setAttribute("statusMsg", stsMsg); 
 	} 
 	
 	
@@ -105,7 +105,7 @@
 <div class = "col">
 	<h1>Items Management</h1>
 	
-	<form id="formItem" name="formItem" method="post" action="items.jsp">
+	<form id="formItem" name="formItem" method="post" action="item.jsp">
 		 Item code:
 		 <input id="itemCode" name="itemCode" type="text"
  						class="form-control form-control-sm">
@@ -133,10 +133,11 @@
 	<br/>
 	<!-- Show output -->
 
-	<div class="alert alert-success">
+	<div id= "alertSuccess" class="alert alert-success">
  		<% out.print(session.getAttribute("statusMsg")); %>
  		
  	</div>
+ 	<div id = "alertError" class="alert-danger"></div>
 	
 	<br>
 	<%
